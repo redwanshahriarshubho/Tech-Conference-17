@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Conference 17</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1B263B', // Navy for a professional look
+                        secondary: '#2B6A6E', // Muted teal for accents
+                        neutral: '#E2E8F0', // Soft gray for backgrounds
+                    },
+                    animation: {
+                        'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-in': 'bounceIn 0.6s ease-out',
+                    },
+                    keyframes: {
+                        pulse: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0.5' },
+                        },
+                        bounceIn: {
+                            '0%': { transform: 'scale(0.3)', opacity: '0' },
+                            '50%': { transform: 'scale(1.05)', opacity: '1' },
+                            '100%': { transform: 'scale(1)' },
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-neutral font-sans">
+    <!-- Hero Section -->
+    <header class="bg-primary text-white min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-60"></div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 animate-bounce-in">Tech Conference 17</h1>
+            <p class="text-lg md:text-2xl mb-6 animate-pulse">Driving Innovation in Technology | June 10-12, 2025</p>
+            <a href="#register" class="inline-block bg-secondary text-white py-3 px-8 rounded-full hover:bg-teal-800 transition-colors duration-300">Register Now</a>
+        </div>
+    </header>
+
+    <!-- Schedule Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-primary mb-12">Event Schedule</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-neutral p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-xl font-semibold text-secondary mb-2">Day 1: Keynotes</h3>
+                    <p class="text-gray-600">Hear from industry leaders on AI and cloud computing.</p>
+                    <p class="mt-2 text-sm text-gray-500">June 10, 9:00 AM - 12:00 PM</p>
+                </div>
+                <div class="bg-neutral p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-xl font-semibold text-secondary mb-2">Day 2: Workshops</h3>
+                    <p class="text-gray-600">Hands-on sessions on web development and DevOps.</p>
+                    <p class="mt-2 text-sm text-gray-500">June 11, 10:00 AM - 4:00 PM</p>
+                </div>
+                <div class="bg-neutral p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-xl font-semibold text-secondary mb-2">Day 3: Networking</h3>
+                    <p class="text-gray-600">Connect with professionals and innovators.</p>
+                    <p class="mt-2 text-sm text-gray-500">June 12, 1:00 PM - 6:00 PM</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Speakers Section -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-primary mb-12">Featured Speakers</h2>
+            <div class="flex flex-col sm:flex-row sm:flex-wrap justify-center gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center w-full sm:w-60 group hover:bg-secondary hover:text-white transition-colors duration-300">
+                    <img src="https://via.placeholder.com/150" alt="Speaker 1" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <h3 class="text-lg font-semibold">Redwan</h3>
+                    <p class="text-sm">AI Researcher</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center w-full sm:w-60 group hover:bg-secondary hover:text-white transition-colors duration-300">
+                    <img src="https://via.placeholder.com/150" alt="Speaker 2" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <h3 class="text-lg font-semibold">Shahriar</h3>
+                    <p class="text-sm">Cloud Architect</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Form -->
+    <section id="register" class="py-16 bg-primary text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Register Now</h2>
+            <div class="max-w-md mx-auto">
+                <form class="space-y-4">
+                    <input type="text" placeholder="Full Name" class="w-full p-3 rounded-lg bg-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-secondary">
+                    <input type="email" placeholder="Email Address" class="w-full p-3 rounded-lg bg-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-secondary">
+                    <select class="w-full p-3 rounded-lg bg-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-secondary">
+                        <option>Ticket Type</option>
+                        <option>General Admission</option>
+                        <option>VIP Pass</option>
+                    </select>
+                    <button type="submit" class="w-full bg-secondary text-white py-3 rounded-lg hover:bg-teal-800 transition-colors duration-300">Submit</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy;  Tech Conference 17. All rights reserved.</p>
+            <div class="flex justify-center gap-4 mt-4">
+                <a href="#" class="hover:text-secondary">Twitter</a>
+                <a href="#" class="hover:text-secondary">LinkedIn</a>
+                <a href="#" class="hover:text-secondary">Instagram</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
