@@ -4,19 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech Conference 17</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS for Scroll Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#1B263B', // Navy for a professional look
-                        secondary: '#2B6A6E', // Muted teal for accents
-                        neutral: '#E2E8F0', // Soft gray for backgrounds
+                        primary: '#1A1A1A', // Deep black for main background
+                        secondary: '#26A69A', // Vibrant teal for accents
+                        accent: '#FFD700', // Gold for highlights
+                        neutral: '#2D2D2D', // Dark gray for secondary backgrounds
                     },
                     animation: {
                         'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'bounce-in': 'bounceIn 0.6s ease-out',
+                        'fade-in': 'fadeIn 1s ease-out',
                     },
                     keyframes: {
                         pulse: {
@@ -28,95 +38,305 @@
                             '50%': { transform: 'scale(1.05)', opacity: '1' },
                             '100%': { transform: 'scale(1)' },
                         },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
                     },
                 },
             },
         }
     </script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #ffffff;
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--secondary), #1B5E20);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(38, 166, 154, 0.4);
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+    </style>
 </head>
-<body class="bg-neutral font-sans">
+<body class="bg-primary">
+    <!-- Initialize AOS -->
+    <script>
+        AOS.init({ duration: 1000, once: true });
+    </script>
+
     <!-- Hero Section -->
-    <header class="bg-primary text-white min-h-screen flex items-center justify-center relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-60"></div>
-        <div class="container mx-auto px-4 text-center relative z-10">
+    <header class="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-70"></div>
+        <div class="container mx-auto px-4 text-center relative z-10" data-aos="fade-up">
             <h1 class="text-4xl md:text-6xl font-extrabold mb-4 animate-bounce-in">Tech Conference 17</h1>
             <p class="text-lg md:text-2xl mb-6 animate-pulse">Driving Innovation in Technology | June 10-12, 2025</p>
-            <a href="#register" class="inline-block bg-secondary text-white py-3 px-8 rounded-full hover:bg-teal-800 transition-colors duration-300">Register Now</a>
+            <div id="countdown" class="text-xl md:text-2xl mb-8 text-accent">
+                <span id="days">00</span> Days <span id="hours">00</span> Hours <span id="minutes">00</span> Minutes <span id="seconds">00</span> Seconds
+            </div>
+            <a href="#register" class="btn-primary inline-block text-white py-3 px-8 rounded-full">Register Now</a>
         </div>
     </header>
 
     <!-- Schedule Section -->
-    <section class="py-16 bg-white">
+    <section class="py-16 bg-neutral" data-aos="fade-up">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center text-primary mb-12">Event Schedule</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-neutral p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-xl font-semibold text-secondary mb-2">Day 1: Keynotes</h3>
-                    <p class="text-gray-600">Hear from industry leaders on AI and cloud computing.</p>
-                    <p class="mt-2 text-sm text-gray-500">June 10, 9:00 AM - 12:00 PM</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-8 section-title">Event Schedule</h2>
+            <div class="flex justify-center mb-8">
+                <div class="flex gap-4">
+                    <button class="btn-primary py-2 px-4 rounded-lg active-day" data-day="day1">Day 1</button>
+                    <button class="btn-primary py-2 px-4 rounded-lg" data-day="day2">Day 2</button>
+                    <button class="btn-primary py-2 px-4 rounded-lg" data-day="day3">Day 3</button>
                 </div>
-                <div class="bg-neutral p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-xl font-semibold text-secondary mb-2">Day 2: Workshops</h3>
-                    <p class="text-gray-600">Hands-on sessions on web development and DevOps.</p>
-                    <p class="mt-2 text-sm text-gray-500">June 11, 10:00 AM - 4:00 PM</p>
+            </div>
+            <div id="schedule-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Day 1 -->
+                <div class="schedule-card bg-gray-800 p-6 rounded-lg card-hover glassmorphism day1">
+                    <h3 class="text-xl font-semibold text-accent mb-2">Day 1: Keynotes</h3>
+                    <p class="text-gray-300">Hear from industry leaders on AI and cloud computing.</p>
+                    <p class="mt-2 text-sm text-gray-400">June 10, 9:00 AM - 12:00 PM</p>
                 </div>
-                <div class="bg-neutral p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-xl font-semibold text-secondary mb-2">Day 3: Networking</h3>
-                    <p class="text-gray-600">Connect with professionals and innovators.</p>
-                    <p class="mt-2 text-sm text-gray-500">June 12, 1:00 PM - 6:00 PM</p>
+                <!-- Day 2 -->
+                <div class="schedule-card bg-gray-800 p-6 rounded-lg card-hover glassmorphism day2 hidden">
+                    <h3 class="text-xl font-semibold text-accent mb-2">Day 2: Workshops</h3>
+                    <p class="text-gray-300">Hands-on sessions on web development and DevOps.</p>
+                    <p class="mt-2 text-sm text-gray-400">June 11, 10:00 AM - 4:00 PM</p>
+                </div>
+                <!-- Day 3 -->
+                <div class="schedule-card bg-gray-800 p-6 rounded-lg card-hover glassmorphism day3 hidden">
+                    <h3 class="text-xl font-semibold text-accent mb-2">Day 3: Networking</h3>
+                    <p class="text-gray-300">Connect with professionals and innovators.</p>
+                    <p class="mt-2 text-sm text-gray-400">June 12, 1:00 PM - 6:00 PM</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Speakers Section -->
-    <section class="py-16 bg-gray-100">
+    <section class="py-16 bg-primary" data-aos="fade-up">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center text-primary mb-12">Featured Speakers</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-12 section-title">Featured Speakers</h2>
             <div class="flex flex-col sm:flex-row sm:flex-wrap justify-center gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-lg text-center w-full sm:w-60 group hover:bg-secondary hover:text-white transition-colors duration-300">
-                    <img src="https://via.placeholder.com/150" alt="Speaker 1" class="w-24 h-24 rounded-full mx-auto mb-4">
-                    <h3 class="text-lg font-semibold">Redwan</h3>
-                    <p class="text-sm">AI Researcher</p>
+                <div class="bg-gray-800 p-6 rounded-lg card-hover glassmorphism text-center w-full sm:w-60 cursor-pointer" data-speaker="redwan" data-aos="zoom-in">
+                    <img src="https://via.placeholder.com/150" alt="Redwan" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <h3 class="text-lg font-semibold text-accent">Redwan</h3>
+                    <p class="text-sm text-gray-300">AI Researcher</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-lg text-center w-full sm:w-60 group hover:bg-secondary hover:text-white transition-colors duration-300">
-                    <img src="https://via.placeholder.com/150" alt="Speaker 2" class="w-24 h-24 rounded-full mx-auto mb-4">
-                    <h3 class="text-lg font-semibold">Shahriar</h3>
-                    <p class="text-sm">Cloud Architect</p>
+                <div class="bg-gray-800 p-6 rounded-lg card-hover glassmorphism text-center w-full sm:w-60 cursor-pointer" data-speaker="kamal" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="https://via.placeholder.com/150" alt="Kamal" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <h3 class="text-lg font-semibold text-accent">Kamal</h3>
+                    <p class="text-sm text-gray-300">Cloud Architect</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-16 bg-neutral" data-aos="fade-up">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-12 section-title">What Attendees Say</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-800 p-6 rounded-lg card-hover glassmorphism">
+                    <p class="text-gray-300 italic mb-4">"Tech Conference 17 was a game-changer for my career. The AI sessions were top-notch!"</p>
+                    <div class="flex items-center">
+                        <img src="https://via.placeholder.com/50" alt="Redwan" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="font-semibold text-accent">Redwan</p>
+                            <p class="text-sm text-gray-400">Data Scientist, Dhaka</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg card-hover glassmorphism">
+                    <p class="text-gray-300 italic mb-4">"The workshops provided hands-on skills I could apply immediately. Highly recommend!"</p>
+                    <div class="flex items-center">
+                        <img src="https://via.placeholder.com/50" alt="Kamal" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="font-semibold text-accent">Kamal</p>
+                            <p class="text-sm text-gray-400">Developer, Sylhet</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg card-hover glassmorphism">
+                    <p class="text-gray-300 italic mb-4">"Networking opportunities were fantastic. I made valuable connections!"</p>
+                    <div class="flex items-center">
+                        <img src="https://via.placeholder.com/50" alt="Parvin" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="font-semibold text-accent">Parvin</p>
+                            <p class="text-sm text-gray-400">Tech Educator, Chittagong</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Registration Form -->
-    <section id="register" class="py-16 bg-primary text-white">
+    <section id="register" class="py-16 bg-primary" data-aos="fade-up">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Register Now</h2>
-            <div class="max-w-md mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-12 section-title">Register Now</h2>
+            <div class="max-w-md mx-auto glassmorphism p-6 rounded-lg">
                 <form class="space-y-4">
-                    <input type="text" placeholder="Full Name" class="w-full p-3 rounded-lg bg-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-secondary">
-                    <input type="email" placeholder="Email Address" class="w-full p-3 rounded-lg bg-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-secondary">
-                    <select class="w-full p-3 rounded-lg bg-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-secondary">
+                    <input type="text" placeholder="Full Name" class="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-accent">
+                    <input type="email" placeholder="Email Address" class="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-accent">
+                    <select class="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-accent">
                         <option>Ticket Type</option>
                         <option>General Admission</option>
                         <option>VIP Pass</option>
                     </select>
-                    <button type="submit" class="w-full bg-secondary text-white py-3 rounded-lg hover:bg-teal-800 transition-colors duration-300">Submit</button>
+                    <button type="submit" class="w-full btn-primary text-white py-3 rounded-lg">Submit</button>
                 </form>
             </div>
         </div>
     </section>
 
+    <!-- Speaker Modal -->
+    <div id="speakerModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden z-50">
+        <div class="bg-gray-800 p-6 rounded-lg max-w-lg w-full glassmorphism">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="speakerModalTitle" class="text-xl font-bold text-accent"></h3>
+                <button onclick="closeSpeakerModal()" class="text-gray-300 hover:text-white"><i class="fas fa-times"></i></button>
+            </div>
+            <img id="speakerModalImage" src="" alt="" class="w-32 h-32 rounded-full mx-auto mb-4">
+            <p id="speakerModalRole" class="text-gray-300 text-center mb-4"></p>
+            <p id="speakerModalBio" class="text-gray-300 mb-4"></p>
+            <p id="speakerModalSession" class="text-gray-300"></p>
+        </div>
+    </div>
+
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-6">
+    <footer class="bg-neutral py-8" data-aos="fade-up">
         <div class="container mx-auto px-4 text-center">
-            <p>&copy;  Tech Conference 17. All rights reserved.</p>
-            <div class="flex justify-center gap-4 mt-4">
-                <a href="#" class="hover:text-secondary">Twitter</a>
-                <a href="#" class="hover:text-secondary">LinkedIn</a>
-                <a href="#" class="hover:text-secondary">Instagram</a>
+            <p class="text-gray-300 mb-4">&copy; 2025 Tech Conference 17. All rights reserved.</p>
+            <div class="flex justify-center gap-4 mb-4">
+                <a href="#" onclick="share('twitter')" class="text-gray-300 hover:text-accent"><i class="fab fa-twitter"></i></a>
+                <a href="#" onclick="share('linkedin')" class="text-gray-300 hover:text-accent"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" onclick="share('instagram')" class="text-gray-300 hover:text-accent"><i class="fab fa-instagram"></i></a>
             </div>
         </div>
     </footer>
+
+    <script>
+        // Countdown Timer
+        function startCountdown() {
+            const eventDate = new Date('June 10, 2025 09:00:00').getTime();
+            const timer = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = eventDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+
+                if (distance < 0) {
+                    clearInterval(timer);
+                    document.getElementById('countdown').textContent = 'Event Started!';
+                }
+            }, 1000);
+        }
+        startCountdown();
+
+        // Agenda Toggle
+        const dayButtons = document.querySelectorAll('.btn-primary[data-day]');
+        dayButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                dayButtons.forEach(btn => btn.classList.remove('active-day'));
+                button.classList.add('active-day');
+
+                const day = button.getAttribute('data-day');
+                document.querySelectorAll('.schedule-card').forEach(card => {
+                    card.classList.add('hidden');
+                    if (card.classList.contains(day)) {
+                        card.classList.remove('hidden');
+                    }
+                });
+            });
+        });
+
+        // Speaker Modal
+        const speakers = {
+            redwan: {
+                title: 'Redwan',
+                role: 'AI Researcher',
+                bio: 'Redwan is a leading expert in artificial intelligence, with over 10 years of experience in machine learning and neural networks.',
+                session: 'Keynote: The Future of AI in Industry',
+                image: 'https://via.placeholder.com/150',
+            },
+            kamal: {
+                title: 'Kamal',
+                role: 'Cloud Architect',
+                bio: 'Kamal specializes in designing scalable cloud infrastructures for global enterprises.',
+                session: 'Workshop: Building Resilient Cloud Systems',
+                image: 'https://via.placeholder.com/150',
+            },
+        };
+
+        document.querySelectorAll('[data-speaker]').forEach(card => {
+            card.addEventListener('click', () => {
+                const speakerId = card.getAttribute('data-speaker');
+                const speaker = speakers[speakerId];
+                document.getElementById('speakerModalTitle').textContent = speaker.title;
+                document.getElementById('speakerModalRole').textContent = speaker.role;
+                document.getElementById('speakerModalBio').textContent = speaker.bio;
+                document.getElementById('speakerModalSession').textContent = `Session: ${speaker.session}`;
+                document.getElementById('speakerModalImage').src = speaker.image;
+                document.getElementById('speakerModal').classList.remove('hidden');
+            });
+        });
+
+        function closeSpeakerModal() {
+            document.getElementById('speakerModal').classList.add('hidden');
+        }
+
+        // Social Sharing
+        function share(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Join me at Tech Conference 17! #TechConf17');
+            let shareUrl = '';
+            if (platform === 'twitter') {
+                shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+            } else if (platform === 'linkedin') {
+                shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+            } else if (platform === 'instagram') {
+                alert('Instagram sharing is not directly supported. Copy the link to share!');
+                return;
+            }
+            window.open(shareUrl, '_blank');
+        }
+    </script>
 </body>
 </html>
